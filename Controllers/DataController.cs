@@ -11,14 +11,14 @@ namespace DataTableTest.Controllers
         }
         public IActionResult GetData(Models.DataTable.DataTableParameter dtParams)
         {
-            List<Models.Employee> filterList = employeeService.GetFilteredData(dtParams);
+            (List<Models.Employee> filterList, int filteredCount) = employeeService.GetFilteredData(dtParams);
 
             return Json(new
             {
                 draw = dtParams.draw,
                 data = filterList,
                 recordsTotal = employeeService.GetDataCount(),
-                recordsFiltered = filterList.Count,
+                recordsFiltered = filteredCount,
             });
         }
 
@@ -33,14 +33,14 @@ namespace DataTableTest.Controllers
                 }
             }
             var dtParams = new Models.DataTable.DataTableParameter(inputParams);
-            List<Models.Employee> filterList = employeeService.GetFilteredData(dtParams);
+            (List<Models.Employee> filterList, int filteredCount) = employeeService.GetFilteredData(dtParams);
 
             return Json(new
             {
                 draw = dtParams.draw,
                 data = filterList,
                 recordsTotal = employeeService.GetDataCount(),
-                recordsFiltered = filterList.Count,
+                recordsFiltered = filteredCount,
             });
         }
     }

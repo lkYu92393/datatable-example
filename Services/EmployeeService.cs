@@ -22,7 +22,7 @@
             return dataSrc.Count;
         }
 
-        public List<Models.Employee> GetFilteredData(Models.DataTable.DataTableParameter dtParams)
+        public (List<Models.Employee>, int) GetFilteredData(Models.DataTable.DataTableParameter dtParams)
         {
             var dataQuery = dataSrc.AsQueryable();
             //search
@@ -57,7 +57,7 @@
                 }
             }
 
-            return dataQuery.ToList();
+            return (dataQuery.Skip(dtParams.start).Take(dtParams.length).ToList(), dataQuery.Count());
         }
     }
 }
