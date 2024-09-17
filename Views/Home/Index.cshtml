@@ -48,6 +48,10 @@
                 <th>ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Age</th>
+                <th>Birth Date</th>
+                <th>Start Date</th>
+                <th>End Date</th>
             </tr>
         </thead>
     </table>
@@ -61,14 +65,20 @@
             serverSide: true,
             processing: true,
             ajax: {
-                url: '/Data/GetData',
+                //url: '/Data/GetData',
+                url: '/Data/GetDataWithoutAutoBinding',
                 type: 'POST'
             },
             columns: [
                 { data: 'id', name: 'ID'},
                 { data: 'employeeFirstName', name: 'First Name'},
                 { data: 'employeeLastName', name: 'Last Name'},
-            ]
+                { data: 'age', name: 'Age'},
+                { data: 'birthDate', name: 'Birth Date'},
+                { data: 'startDate', name: 'Start Date'},
+                { data: 'endDate', name: 'End Date'},
+            ],
+            columnDefs: []
         })
     })
 </script>

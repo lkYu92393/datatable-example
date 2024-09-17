@@ -4,15 +4,42 @@ namespace DataTableTest.Controllers
 {
     public class DataController : Controller
     {
+        Services.EmployeeService employeeService;
+        public DataController()
+        {
+            employeeService = new();
+        }
         public IActionResult GetData(Models.DataTable.DataTableParameter dtParams)
         {
-            List<Models.Employee> employeeList = Models.Employee.GetMockData(200);
-            List<Models.Employee> filterList = employeeList;
+            List<Models.Employee> filterList = employeeService.GetFilteredData(dtParams);
 
             return Json(new
             {
+                draw = dtParams.draw,
                 data = filterList,
-                recordsTotal = employeeList.Count,
+                recordsTotal = employeeService.GetDataCount(),
+                recordsFiltered = filterList.Count,
+            });
+        }
+
+        public IActionResult GetDataWithoutAutoBinding()
+        {
+            Dictionary<string, string> inputParams = new Dictionary<string, string>();
+            foreach (var key in Request.Form.Keys)
+            {
+                if (key.StartsWith("order") || key.StartsWith("draw") || key.StartsWith("search") || key.StartsWith("length") || key.StartsWith("start") || key.StartsWith("columns"))
+                {
+                    inputParams.Add(key, Request.Form[key]);
+                }
+            }
+            var dtParams = new Models.DataTable.DataTableParameter(inputParams);
+            List<Models.Employee> filterList = employeeService.GetFilteredData(dtParams);
+
+            return Json(new
+            {
+                draw = dtParams.draw,
+                data = filterList,
+                recordsTotal = employeeService.GetDataCount(),
                 recordsFiltered = filterList.Count,
             });
         }

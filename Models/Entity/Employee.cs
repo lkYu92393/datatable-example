@@ -10,7 +10,6 @@
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-
         public static List<Employee> GetMockData(int numberOfRecords)
         {
             List<Employee> employeeList = new();

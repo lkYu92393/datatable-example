@@ -8,6 +8,8 @@
         public int start { get; set; }
         public int length { get; set; }
         public DataTableSearch search { get; set; }
+
+        public DataTableParameter() { }
         public DataTableParameter(Dictionary<string, string> dict)
         {
             draw = int.Parse(dict["draw"]);
@@ -26,6 +28,7 @@
         public bool searchable { get; set; }
         public bool orderable { get; set; }
         public DataTableSearch search { get; set; }
+        public DataTableColumns() { }
         public DataTableColumns(Dictionary<string, string> dict, string prefix)
         {
             data = dict[$"{prefix}[data]"];
@@ -50,7 +53,8 @@
     public class DataTableSearch
     {
         public string value { get; set; }
-        public string regex { get; set; }
+        public bool regex { get; set; }
+        public DataTableSearch() { }
         public DataTableSearch(Dictionary<string, string> dict, string prefix = "search")
         {
             value = dict[$"{prefix}[value]"];
@@ -63,6 +67,7 @@
         public string column { get; set; }
         public string dir { get; set; }
         public string name { get; set; }
+        public DataTableOrder() { }
         public DataTableOrder(Dictionary<string, string> dict, string prefix)
         {
             column = dict[$"{prefix}[column]"];
